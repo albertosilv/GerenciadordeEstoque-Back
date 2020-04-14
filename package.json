@@ -1,18 +1,19 @@
 {
-  "name": "codex-api",
+  "name": "crud",
   "version": "1.0.0",
-  "description": "API para o desafio da Codex.",
+  "description": "",
   "main": "index.js",
-  "repository": "git@github.com:henriqueln7/codex-api.git",
-  "author": "Henrique Lopes <henriquelopees7@gmail.com>",
-  "license": "MIT",
   "scripts": {
-    "start": "nodemon src/app.js"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "devDependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.9",
     "nodemon": "^2.0.3"
   }
 }
