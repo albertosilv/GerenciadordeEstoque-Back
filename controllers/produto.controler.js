@@ -1,42 +1,43 @@
-var Celular = require('../models/celular.model');
+var Produto = require('../models/produto.model');
 exports.test = function (req, res) {
     res.send('Olá! Teste ao Controller');
 };
 
 exports.create = function(req,res){
-    let celular = new Celular({
+    let produto = new Produto({
             nome: req.body.nome,
-            marca: req.body.marca
+            quantidade: req.body.quantidade,
+            valor: req.body.valor
     });
-    celular.save(function (err) {
+    produto.save(function (err) {
         if (err) {
            return console.log(err);
         }
-        res.send('Registro de Celular criado com sucesso');
+        res.send('Registro de produto criado com sucesso');
     })
 };
 exports.onedetails = function (req,res){
-    Celular.findById(req.params.id, function (err, celular) {
+    Produto.findById(req.params.id, function (err, produto) {
         if (err) return console.log(err);
-        res.send(celular);
+        res.send(produto);
     })
 }
 exports.details = function (req, res) {
-    Celular.find(function (err, celular) {
+    Produto.find(function (err, produto) {
         if (err) return console.log(err);
-        res.send(celular);
+        res.send(produto);
     })
 };
 
 exports.update = function(req,res){
-        Celular.findByIdAndUpdate (req.params.id, {$set: req.body}, function (err, celular) { 
+        Produto.findByIdAndUpdate (req.params.id, {$set: req.body}, function (err, produto) { 
             if (err) return console.log(err); 
-            res.send ('Celular atualizado.'); 
+            res.send ('produto atualizado.'); 
         }); 
 };
 
 exports.delete = function(req,res){
-    Celular.findByIdAndRemove(req.params.id, function (err) {
+    Produto.findByIdAndRemove(req.params.id, function (err) {
         if (err) return console.log(err);
         res.send('Deletado com sucesso');
     })

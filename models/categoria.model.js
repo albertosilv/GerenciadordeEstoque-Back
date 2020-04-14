@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-let CelularSchema = new Schema({
+let CategoriaSchema = new Schema({
     nome: {
         type: String, 
         required: true, max: 100
     },
-    marca: {
-        type: String, 
-        required: true},
 });
 // Exportar o modelo
-module.exports = mongoose.model('Celular', CelularSchema);
+module.exports = mongoose.model('Categoria', CategoriaSchema);

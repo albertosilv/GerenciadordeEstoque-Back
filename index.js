@@ -4,7 +4,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
-const celular = require('./routes/celular.routes'); // Importa rota
+const produto = require('./routes/produto.routes'); // Importa rota
+const categoria = require('./routes/categoria.routes'); // Importa rota
+
 
 let url="mongodb+srv://albertosilva:GqIHRbVgtDwpGD4S@cluster0-cnuoa.gcp.mongodb.net/test?retryWrites=true&w=majority"
 
@@ -14,11 +16,12 @@ mongoose.Promise = global.Promise;
 
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro na Ligação ao MongoDB'));
-app.uns(cors());
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
-app.use('/', celular);
+app.use('/produto', produto);
+app.use('/categoria', categoria);
 
-app.listen(3000, function(){
+app.listen(4000, function(){
     console.log("Servidor iniciado");
 })
