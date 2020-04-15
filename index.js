@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 const app = express();
-const produto = require('./routes/produto.routes'); // Importa rota
+const produto = require('./routes/product.routes'); // Importa rota
 const categoria = require('./routes/category.routes'); // Importa rota
 
 
