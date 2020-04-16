@@ -3,7 +3,7 @@ const Category = require('../models/category.model');
 module.exports = {
   create(req, res) {
     const category = new Category({
-      nome: req.body.nome,
+      name: req.body.name,
     });
     category.save((err) => {
       if (err) {
@@ -23,25 +23,20 @@ module.exports = {
   },
 
   details(req, res) {
-    Category.find((err, category) => {
-      if (err) {
-        return res.status().json({ error: err });
-      }
-      return res.status(200).json(category);
-    });
+    Category.find({}).populate({ path: 'products', select: 'name quantity -_id' })
+      .then((categories) => res.status(200).json(categories))
+      .catch((err) => res.status(400).json({ error: err }));
   },
-
   update(req, res) {
     const { id } = req.params;
-    const { nome } = req.body;
-    Category.findByIdAndUpdate(id, { nome }, (err, category) => {
+    const { name } = req.body;
+    Category.findByIdAndUpdate(id, { name }, (err, category) => {
       if (err) {
         return res.status(400).json({ error: err });
       }
       return res.status(200).json(category);
     });
   },
-
   delete(req, res) {
     Category.findByIdAndRemove(req.params.id, (err) => {
       if (err) {

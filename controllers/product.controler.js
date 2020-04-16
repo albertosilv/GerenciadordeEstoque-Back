@@ -3,9 +3,9 @@ const Product = require('../models/product.model');
 module.exports = {
   create(req, res) {
     const product = new Product({
-      nome: req.body.nome,
-      quantidade: req.body.quantidade,
-      valor: req.body.valor,
+      name: req.body.name,
+      quantity: req.body.quantity,
+      value: req.body.value,
     });
     product.save((err) => {
       if (err) {
@@ -46,7 +46,7 @@ module.exports = {
       if (err) {
         return res.status(400).json({ error: err });
       }
-      return res.status(204).send();
+      return res.status(204).json();
     });
   },
 };
