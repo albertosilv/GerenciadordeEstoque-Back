@@ -1,13 +1,17 @@
 const express = require('express');
+const multer = require('multer');
+const multerConfig = require('../config/multer');
 
 const router = express.Router();
 
 const CategoryController = require('../controllers/category.controler');
+const ProductCategoryController = require('../controllers/ProductCategoryController');
 
-router.get('/', CategoryController.details);
-router.get('/:id', CategoryController.onedetails);
+router.get('/', CategoryController.index);
+router.get('/:id', CategoryController.show);
 router.post('/', CategoryController.create);
 router.put('/:id', CategoryController.update);
 router.delete('/:id', CategoryController.delete);
 
+router.post('/:categoryId/produtos', multer(multerConfig).single('image'), ProductCategoryController.store);
 module.exports = router;
