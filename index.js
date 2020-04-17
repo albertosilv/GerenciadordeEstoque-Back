@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const produto = require('./routes/product.routes'); // Importa rota
@@ -19,8 +20,10 @@ db.on('error', console.error.bind(console, 'Erro na Ligação ao MongoDB'));
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/produto', produto);
-app.use('/categoria', categoria);
+app.use('/produtos', produto);
+app.use('/categorias', categoria);
+
+app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 
 app.listen(4000, function () {
   console.log("Servidor iniciado");
