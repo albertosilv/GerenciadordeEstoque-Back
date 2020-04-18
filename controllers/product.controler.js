@@ -15,7 +15,7 @@ module.exports = {
     });
   },
 
-  onedetails(req, res) {
+  show(req, res) {
     Product.findById(req.params.id, (err, produto) => {
       if (err) {
         return res.status(400).json({ error: err });
@@ -24,7 +24,7 @@ module.exports = {
     });
   },
 
-  details(req, res) {
+  index(req, res) {
     Product.find((err, produto) => {
       if (err) {
         return res.status(400).json({ error: err });

@@ -21,7 +21,7 @@ const ProductSchema = new mongoose.Schema({
 
 ProductSchema.pre('save', function () {
   if (this.image) {
-    this.image = `http://localhost:4000/files/${this.image}`;
+    this.image = `http://localhost:2000/files/${this.image}`;
   }
 });
 

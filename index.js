@@ -25,6 +25,6 @@ app.use('/categorias', categoria);
 
 app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 
-app.listen(4000, function () {
+app.listen(2000, function () {
   console.log("Servidor iniciado");
 })

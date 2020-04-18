@@ -13,7 +13,7 @@ module.exports = {
     });
   },
 
-  onedetails(req, res) {
+  show(req, res) {
     Category.findById(req.params.id, (err, category) => {
       if (err) {
         return res.status(404).json({ error: err });
@@ -22,7 +22,7 @@ module.exports = {
     });
   },
 
-  details(req, res) {
+  index(req, res) {
     Category.find({}).populate({ path: 'products', select: 'name quantity -_id' })
       .then((categories) => res.status(200).json(categories))
       .catch((err) => res.status(400).json({ error: err }));
