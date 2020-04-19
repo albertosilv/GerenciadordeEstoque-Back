@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "stop-linux": "killall node"
+    "stop-linux": "killall node",
+    "start":"node index.js"
 
   },
   "author": "",

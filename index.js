@@ -25,6 +25,8 @@ app.use('/categorias', categoria);
 
 app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
 
-app.listen(4000, function () {
-  console.log("Servidor iniciado");
+const port = process.env.PORT || 4000;
+
+app.listen(port, function () {
+  console.log("Servidor iniciado na porta",port);
 })
