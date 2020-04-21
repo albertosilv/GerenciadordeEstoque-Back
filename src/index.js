@@ -23,10 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/produtos', produto);
 app.use('/categorias', categoria);
 
-app.use('/files', express.static(path.resolve(__dirname, 'tmp', 'uploads')));
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')));
 
 const port = process.env.PORT || 4000;
 
 app.listen(port, function () {
-  console.log("Servidor iniciado na porta",port);
+  console.log("Servidor iniciado na porta", port);
 })
