@@ -1,48 +1,54 @@
 const Category = require('../models/category.model');
 
 module.exports = {
-  create(req, res) {
-    const category = new Category({
-      name: req.body.name,
-    });
-    category.save((err) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+  async create(req, res) {
+    try {
+      const category = await Category.create({ name: req.body.name });
+
       return res.status(201).json(category);
-    });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 
-  show(req, res) {
-    Category.findById(req.params.id, (err, category) => {
-      if (err) {
-        return res.status(404).json({ error: err });
-      }
+  async show(req, res) {
+    try {
+      const category = await Category.findById(req.params.id).populate('products');
+
       return res.status(200).json(category);
-    });
+    } catch (error) {
+      return res.status(404).json(error);
+    }
   },
 
-  index(req, res) {
-    Category.find({}).populate({ path: 'products', select: 'name quantity -_id' })
-      .then((categories) => res.status(200).json(categories))
-      .catch((err) => res.status(400).json({ error: err }));
+  async index(req, res) {
+    try {
+      const categories = await Category.find({}).populate({ path: 'products', select: 'name quantity -_id' });
+
+      res.status(200).json(categories);
+    } catch (error) {
+      res.status(400).json(error);
+    }
   },
-  update(req, res) {
+  async update(req, res) {
     const { id } = req.params;
     const { name } = req.body;
-    Category.findByIdAndUpdate(id, { name }, (err, category) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+
+    try {
+      const category = Category.findByIdAndUpdate(id, { name });
       return res.status(200).json(category);
-    });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
-  delete(req, res) {
-    Category.findByIdAndRemove(req.params.id, (err) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
-      return res.status(204).send();
-    });
+  async delete(req, res) {
+    const { id } = req.params;
+
+    try {
+      await Category.findByIdAndRemove(id);
+      return res.status(204).json();
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 };

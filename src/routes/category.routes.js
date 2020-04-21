@@ -13,5 +13,5 @@ router.post('/', CategoryController.create);
 router.put('/:id', CategoryController.update);
 router.delete('/:id', CategoryController.delete);
 
-router.post('/:categoryId/produtos', multer(multerConfig).single('image'), ProductCategoryController.store);
+router.post('/:categoryId/produtos', multer(multerConfig).single('image'), ProductCategoryController.create);
 module.exports = router;

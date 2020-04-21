@@ -1,52 +1,56 @@
 const Product = require('../models/product.model');
 
 module.exports = {
-  create(req, res) {
-    const product = new Product({
-      name: req.body.name,
-      quantity: req.body.quantity,
-      value: req.body.value,
-    });
-    product.save((err) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+  async create(req, res) {
+    const { name, quantity, value } = req.body;
+
+    try {
+      const product = await Product.create({ name, quantity, value });
+
       return res.status(201).json(product);
-    });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 
-  show(req, res) {
-    Product.findById(req.params.id, (err, produto) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
-      return res.status(200).json(produto);
-    });
-  },
+  async show(req, res) {
+    const { id } = req.params;
+    try {
+      const product = await Product.findById(id);
 
-  index(req, res) {
-    Product.find((err, produto) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
-      return res.status(200).json(produto);
-    });
-  },
-
-  update(req, res) {
-    Product.findByIdAndUpdate(req.params.id, { $set: req.body }, (err, product) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
       return res.status(200).json(product);
-    });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
-  delete(req, res) {
-    Product.findByIdAndRemove(req.params.id, (err) => {
-      if (err) {
-        return res.status(400).json({ error: err });
-      }
+
+  async index(req, res) {
+    try {
+      const products = await Product.find({});
+
+      return res.status(200).json(products);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  },
+
+  async update(req, res) {
+    const { id } = req.params;
+    try {
+      const product = await Product.findByIdAndUpdate(id, { $set: req.body });
+
+      return res.status(200).json(product);
+    } catch (error) {
+      return res.status(400).json(error);
+    }
+  },
+  async delete(req, res) {
+    const { id } = req.params;
+    try {
+      await Product.findByIdAndRemove(id);
       return res.status(204).json();
-    });
+    } catch (error) {
+      return res.status(400).json(error);
+    }
   },
 };
