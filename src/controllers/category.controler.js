@@ -23,7 +23,7 @@ module.exports = {
 
   async index(req, res) {
     try {
-      const categories = await Category.find({}).populate({ path: 'products', select: 'name quantity -_id' });
+      const categories = await Category.find({}).populate('products');
 
       res.status(200).json(categories);
     } catch (error) {
