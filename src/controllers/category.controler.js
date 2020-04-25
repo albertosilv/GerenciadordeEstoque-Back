@@ -30,12 +30,12 @@ module.exports = {
       res.status(400).json(error);
     }
   },
+
   async update(req, res) {
     const { id } = req.params;
     const { name } = req.body;
-
     try {
-      const category = Category.findByIdAndUpdate(id, { name });
+      const category = await Category.findByIdAndUpdate(id, { name }, { new: true });
       return res.status(200).json(category);
     } catch (error) {
       return res.status(400).json(error);
