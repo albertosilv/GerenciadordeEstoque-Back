@@ -23,12 +23,12 @@ module.exports = {
         value,
         image: fileName,
       });
-      const category = await Category.findByIdAndUpdate(categoryId, {
+      await Category.findByIdAndUpdate(categoryId, {
         $push: {
           products: product._id,
         },
       });
-      return res.status(201).json(category);
+      return res.status(201).json(product);
     } catch (error) {
       return res.status(400).json(error);
     }
