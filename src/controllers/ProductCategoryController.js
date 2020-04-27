@@ -19,6 +19,11 @@ module.exports = {
     }
   },
   async create(req, res) {
+    let image = '';
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      image = result.secure_url;
+    }
     const { name, quantity, value } = req.body;
     const { categoryId } = req.params;
 
@@ -27,21 +32,13 @@ module.exports = {
         name,
         quantity,
         value,
+        image,
       });
       await Category.findByIdAndUpdate(categoryId, {
         $push: {
           products: product._id,
         },
       });
-
-      if (req.file) {
-        cloudinary.uploader.upload(req.file.path, async (error, result) => {
-          if (error) return res.status(400).json(error);
-          product.image = result.secure_url;
-          await product.save();
-        });
-      }
-
       return res.status(201).json(product);
     } catch (error) {
       return res.status(400).json(error);
