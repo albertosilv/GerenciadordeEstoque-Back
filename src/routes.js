@@ -4,8 +4,8 @@ const multerConfig = require('./config/multer');
 
 const router = express.Router();
 
-const ProductController = require('./controllers/product.controler');
-const CategoryController = require('./controllers/category.controler');
+const ProductController = require('./controllers/ProductController');
+const CategoryController = require('./controllers/CategoryController');
 
 router.get('categorias/', CategoryController.index);
 router.get('categorias/:id', CategoryController.show);

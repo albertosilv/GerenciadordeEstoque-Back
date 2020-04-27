@@ -3,8 +3,8 @@ const cloudinary = require('cloudinary').v2.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-const Product = require('../models/product.model');
-const Category = require('../models/category.model');
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 module.exports = {
   async create(req, res) {
