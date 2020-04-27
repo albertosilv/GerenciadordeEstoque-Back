@@ -5,6 +5,10 @@ require('dotenv').config();
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+
 app.use(require('./routes'));
 
 let url = "mongodb+srv://albertosilva:GqIHRbVgtDwpGD4S@cluster0-cnuoa.gcp.mongodb.net/test?retryWrites=true&w=majority"
@@ -15,9 +19,6 @@ mongoose.Promise = global.Promise;
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Erro na Ligação ao MongoDB'));
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 4000;
 

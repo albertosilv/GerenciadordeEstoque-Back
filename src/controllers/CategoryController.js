@@ -7,7 +7,7 @@ module.exports = {
 
       return res.status(201).json(category);
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({ error });
     }
   },
 
@@ -17,7 +17,7 @@ module.exports = {
 
       return res.status(200).json(category);
     } catch (error) {
-      return res.status(404).json(error);
+      return res.status(404).json({ error });
     }
   },
 
@@ -27,7 +27,7 @@ module.exports = {
 
       res.status(200).json(categories);
     } catch (error) {
-      res.status(400).json(error);
+      res.status(400).json({ error });
     }
   },
 
@@ -38,7 +38,7 @@ module.exports = {
       const category = await Category.findByIdAndUpdate(id, { name }, { new: true });
       return res.status(200).json(category);
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({ error });
     }
   },
   async delete(req, res) {
@@ -48,7 +48,7 @@ module.exports = {
       await Category.findByIdAndRemove(id);
       return res.status(204).json();
     } catch (error) {
-      return res.status(400).json(error);
+      return res.status(400).json({ error });
     }
   },
 };
