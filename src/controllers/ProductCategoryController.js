@@ -33,7 +33,7 @@ module.exports = {
           products: product._id,
         },
       });
-      
+
       if (req.file) {
         cloudinary.uploader.upload(req.file.path, async (error, result) => {
           if (error) return res.status(400).json(error);

@@ -1,4 +1,12 @@
+const cloudinary = require('cloudinary').v2;
 const Product = require('../models/product.model');
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 
 module.exports = {
   async create(req, res) {
@@ -38,6 +46,14 @@ module.exports = {
     const { id } = req.params;
     try {
       const product = await Product.findByIdAndUpdate(id, { $set: req.body });
+
+      if (req.file) {
+        cloudinary.uploader.upload(req.file.path, async (error, result) => {
+          if (error) return res.status(400).json(error);
+          product.image = result.secure_url;
+          await product.save();
+        });
+      }
 
       return res.status(200).json(product);
     } catch (error) {
