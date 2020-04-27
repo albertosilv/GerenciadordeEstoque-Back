@@ -4,6 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const path = require('path');
 
+require('dotenv').config();
+
 const app = express();
 const produto = require('./routes/product.routes'); // Importa rota
 const categoria = require('./routes/category.routes'); // Importa rota
