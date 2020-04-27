@@ -28,12 +28,12 @@ module.exports = {
         quantity,
         value,
       });
-      const category = await Category.findByIdAndUpdate(categoryId, {
+      await Category.findByIdAndUpdate(categoryId, {
         $push: {
           products: product._id,
         },
       });
-
+      
       if (req.file) {
         cloudinary.uploader.upload(req.file.path, async (error, result) => {
           if (error) return res.status(400).json(error);
